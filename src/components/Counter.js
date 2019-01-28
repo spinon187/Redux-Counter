@@ -3,10 +3,26 @@ import { connect } from 'react-redux';
 import { increment, decrement } from '../actions';
 
 class Counter extends Component {
-    incrementIfOdd = () => {
+    incrementIfOdd = (e, count) => {
         // Stretch Problem: Implement an increment function that
         // only increments if the counter value is odd
+        e.preventDefault();
+        if (count % 2 !== 0){
+            this.props.increment(count);
+        }
     };
+
+    handleIncrement = (e, count) => {
+        e.preventDefault();
+        this.props.increment(count);
+        console.log(this.props.increment);
+        console.log(this.props.count);
+    }
+
+    handleDecrement = (e, count) => {
+        e.preventDefault();
+        this.props.decrement(count);
+    }
 
     incrementAsync = () => {
         // Stretch Problem: Implement an increment function that
@@ -20,18 +36,18 @@ class Counter extends Component {
         return (
             <p>
                 Clicked: {this.props.count} times
-                <button onClick={() => /* Fill me in */ }>
+                <button onClick={e => this.handleIncrement(e, this.props.count)}>
                     +
                 </button>
-                <button onClick={() => /* Fill me in */ }>
+                <button onClick={e => this.handleDecrement(e, this.props.count)}>
                     -
                 </button>
                  {/* Uncomment these button tags if you got
                 around to implementing the extra credit functions */}
-                {/* <button onClick={this.incrementIfOdd}>
+                <button onClick={e => this.incrementIfOdd(e, this.props.count)}>
                     Increment if odd
                 </button>
-                <button onClick={this.incrementAsync}>
+                {/* <button onClick={this.incrementAsync}>
                     Increment async
                 </button>  */}
             </p>
